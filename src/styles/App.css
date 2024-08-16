@@ -1,0 +1,11 @@
+#main {
+    display: flex;
+    height: 100vh;
+}
+
+.row {
+    display: flex;
+    margin: auto;
+    justify-content: space-around;
+    width: 1000px;
+}
