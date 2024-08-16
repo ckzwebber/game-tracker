@@ -3,6 +3,7 @@ nav {
     flex-direction: row;
     box-shadow: 0 10px 20px #dfdfdf;
     border-radius: 0 0 6px 6px;
+    padding: 20px 0;
 }
 
 nav h1 {
