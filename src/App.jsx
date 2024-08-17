@@ -29,6 +29,13 @@ function App() {
     <>
       <main>
         <Navbar />
+        <section id="description">
+          <p>
+            Welcome, here you can view the games I played, with their
+            respective ratings, number of hours and percentage of completion,
+            enjoy! Percentages only tell the main story of the games.
+          </p>
+        </section>
         <section className="row">
           {games.map((game, i) => (
               <Game

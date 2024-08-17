@@ -3,11 +3,24 @@
     height: 100vh;
 }
 
+#description {
+    display: flex;
+    flex-direction: column;
+    margin: 30px auto;
+    padding: 20px;
+    width: 60%;
+    text-align: center;
+    background: #EDEADE;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
 .row {
-    margin: 60px auto;
+    margin: 20px auto;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    gap: 30px;
-    width: 75%;
+    width: 74%;
+    row-gap: 30px;
+    column-gap: 25px;
 }
