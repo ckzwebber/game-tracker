@@ -1,0 +1,267 @@
+{
+  "games": [
+    {
+      "id": "elden-ring",
+      "title": "Elden Ring",
+      "cover": "/images/elden.jpg",
+      "hoursPlayed": 34,
+      "mainStoryProgress": 60,
+      "rating": 10.0,
+      "status": "completed",
+      "platform": "PC",
+      "startedAt": "2024-03-15",
+      "tags": [
+        "souls",
+        "open-world",
+        "rpg"
+      ],
+      "notes": "O jogo que redefiniu o que open-world pode ser. Cada área parece pintada à mão, cada boss é um teste de paciência e leitura. Ainda não terminei."
+    },
+    {
+      "id": "red-dead-redemption-2",
+      "title": "Red Dead Redemption 2",
+      "cover": "/images/red.jpg",
+      "hoursPlayed": 75,
+      "mainStoryProgress": 100,
+      "rating": 10.0,
+      "status": "completed",
+      "platform": "PC",
+      "startedAt": "2023-10-01",
+      "finishedAt": "2024-01-20",
+      "tags": [
+        "open-world",
+        "story",
+        "western"
+      ],
+      "notes": "Uma obra de arte interativa. Arthur Morgan é um dos personagens mais bem escritos da história dos jogos. O ritmo é lento, e isso é exatamente o que faz ele funcionar. O capítulo 6 destruiu emocionalmente."
+    },
+    {
+      "id": "god-of-war",
+      "title": "God of War",
+      "cover": "/images/gow.jpg",
+      "hoursPlayed": 36,
+      "mainStoryProgress": 100,
+      "rating": 10.0,
+      "status": "completed",
+      "platform": "PC",
+      "startedAt": "2024-01-01",
+      "finishedAt": "2024-01-01",
+      "tags": [
+        "action",
+        "story",
+        "mythology"
+      ]
+    },
+    {
+      "id": "diablo-iv",
+      "title": "Diablo IV",
+      "cover": "/images/diablo.jpg",
+      "hoursPlayed": 23,
+      "mainStoryProgress": 100,
+      "rating": 10.0,
+      "status": "completed",
+      "platform": "PC",
+      "startedAt": "2025-01-01",
+      "tags": [
+        "arpg",
+        "loot",
+        "online"
+      ]
+    },
+    {
+      "id": "counter-strike-2",
+      "title": "Counter-Strike 2",
+      "cover": "/images/cs.jpg",
+      "hoursPlayed": 2060,
+      "mainStoryProgress": 100,
+      "rating": 10.0,
+      "status": "playing",
+      "platform": "PC",
+      "startedAt": "2018-10-31",
+      "tags": [
+        "fps",
+        "competitive",
+        "multiplayer"
+      ]
+    },
+    {
+      "id": "resident-evil-4",
+      "title": "Resident Evil 4",
+      "cover": "/images/re4.jpg",
+      "hoursPlayed": 20,
+      "mainStoryProgress": 100,
+      "rating": 10.0,
+      "status": "completed",
+      "platform": "PC",
+      "startedAt": "2025-01-01",
+      "finishedAt": "2025-02-01",
+      "tags": [
+        "horror",
+        "action",
+        "remake"
+      ]
+    },
+    {
+      "id": "terraria",
+      "title": "Terraria",
+      "cover": "/images/terraria.jpg",
+      "hoursPlayed": 37,
+      "mainStoryProgress": 36,
+      "rating": 10.0,
+      "status": "completed",
+      "platform": "PC",
+      "startedAt": "2024-01-01",
+      "tags": [
+        "survival",
+        "sandbox",
+        "2d"
+      ]
+    },
+    {
+      "id": "ea-fc-24",
+      "title": "EA FC 24",
+      "cover": "/images/eafc24.jpg",
+      "hoursPlayed": 116,
+      "mainStoryProgress": 100,
+      "rating": 7.0,
+      "status": "completed",
+      "platform": "PC",
+      "startedAt": "2024-01-01",
+      "tags": [
+        "sports",
+        "football",
+        "multiplayer"
+      ]
+    },
+    {
+      "id": "hades",
+      "title": "Hades",
+      "cover": "/images/hades.jpg",
+      "hoursPlayed": 28,
+      "mainStoryProgress": 100,
+      "rating": 10.0,
+      "status": "completed",
+      "platform": "PC",
+      "startedAt": "2024-04-10",
+      "finishedAt": "2024-05-02",
+      "tags": [
+        "roguelike",
+        "action",
+        "story"
+      ],
+      "notes": "Prova de que narrativa e roguelike não são incompatíveis. A história avança a cada tentativa, não apenas quando você vence. Design de som, música e arte todos no nível mais alto. Zagreus é uma companhia incrível por 28 horas."
+    },
+    {
+      "id": "the-witcher-3",
+      "title": "The Witcher 3",
+      "cover": "/images/tw3.jpg",
+      "hoursPlayed": 36,
+      "mainStoryProgress": 71,
+      "rating": 8.0,
+      "status": "completed",
+      "platform": "PC",
+      "startedAt": "2024-01-01",
+      "tags": [
+        "rpg",
+        "open-world",
+        "story"
+      ]
+    },
+    {
+      "id": "stardew-valley",
+      "title": "Stardew Valley",
+      "cover": "/images/stardew.jpg",
+      "hoursPlayed": 14,
+      "mainStoryProgress": 15,
+      "rating": 10.0,
+      "status": "completed",
+      "platform": "PC",
+      "startedAt": "2024-01-01",
+      "tags": [
+        "simulation",
+        "farming",
+        "cozy"
+      ]
+    },
+    {
+      "id": "pubg",
+      "title": "PUBG",
+      "cover": "/images/pubg.jpg",
+      "hoursPlayed": 60,
+      "mainStoryProgress": 100,
+      "rating": 7.0,
+      "status": "completed",
+      "platform": "PC",
+      "startedAt": "2023-01-01",
+      "tags": [
+        "fps",
+        "battle-royale",
+        "multiplayer"
+      ]
+    },
+    {
+      "id": "rainbow-six-siege",
+      "title": "Rainbow Six Siege",
+      "cover": "/images/r6.jpg",
+      "hoursPlayed": 30,
+      "mainStoryProgress": 0,
+      "rating": 8.0,
+      "status": "completed",
+      "platform": "PC",
+      "startedAt": "2024-01-01",
+      "tags": [
+        "fps",
+        "tactical",
+        "multiplayer"
+      ]
+    },
+    {
+      "id": "valheim",
+      "title": "Valheim",
+      "cover": "/images/valheim.jpg",
+      "hoursPlayed": 65,
+      "mainStoryProgress": 40,
+      "rating": 10.0,
+      "status": "completed",
+      "platform": "PC",
+      "startedAt": "2024-01-01",
+      "tags": [
+        "survival",
+        "viking",
+        "open-world"
+      ]
+    },
+    {
+      "id": "palworld",
+      "title": "Palworld",
+      "cover": "/images/palworld.jpg",
+      "hoursPlayed": 25,
+      "mainStoryProgress": 40,
+      "rating": 8.0,
+      "status": "completed",
+      "platform": "PC",
+      "startedAt": "2024-01-01",
+      "tags": [
+        "survival",
+        "open-world",
+        "multiplayer"
+      ]
+    },
+    {
+      "id": "dead-cells",
+      "title": "Dead Cells",
+      "cover": "/images/deadcells.jpg",
+      "hoursPlayed": 9,
+      "mainStoryProgress": 60,
+      "rating": 8.0,
+      "status": "completed",
+      "platform": "PC",
+      "startedAt": "2024-01-01",
+      "tags": [
+        "roguelike",
+        "action",
+        "2d"
+      ]
+    }
+  ]
+}
