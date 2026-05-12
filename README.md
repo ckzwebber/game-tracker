@@ -1,44 +1,43 @@
 # GameTracker
 
 [![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
-[![CSS](https://img.shields.io/badge/CSS-0085A1?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind](https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
-Bem-vindo ao meu **GameTracker**! Este site é uma coleção dos jogos que eu já joguei, exibindo informações como **horas jogadas**, **porcentagem da história principal concluída** e **minha avaliação pessoal**.
+Catálogo pessoal de jogos com horas jogadas, progresso da campanha, avaliação e notas. Imagens servidas direto da Steam CDN via `appid`.
 
----
+Demo: [webbergametracker.netlify.app](https://webbergametracker.netlify.app/)
 
-## 📌 Visão Geral
+## Visão geral
 
-O **GameTracker** é uma maneira de acompanhar meus progressos nos jogos e compartilhar minhas experiências com a comunidade. Como estudante de **Ciência da Computação** na **UNESC**, aproveitei para criar este projeto pessoal como parte do meu aprendizado em desenvolvimento web, utilizando **React** para a criação de interfaces dinâmicas.
+Projeto pessoal com foco em design de interface, motion e tipografia. A lista de jogos é estática, definida em `src/data/games.json`, com schema tipado em `src/types/game.ts`. Adicionar um jogo novo é editar o JSON.
 
----
+## Tecnologias
 
-## 🔧 Funcionalidades
+- React + TypeScript
+- Vite
+- Tailwind CSS
+- Framer Motion
 
-- 🎮 **Jogos Jogados**: Uma lista de jogos que eu completei ou estou jogando, com informações como:
-  - 🕒 **Horas Jogadas**
-  - 📊 **Porcentagem da História Principal**
-  - ⭐ **Avaliação**
+## Estrutura de dados
 
-- 📸 **Imagens dos Jogos**: Cada jogo tem uma imagem associada para uma visualização mais imersiva.
+Cada jogo é definido por:
 
----
+- `id`, `appid`, `title`, `platform`
+- `hoursPlayed`, `mainStoryProgress`, `rating`
+- `status`: `jogando` | `concluido` | `largado`
+- `tags`, `notes` (opcional)
 
-## 🔗 Contribuições
+As imagens (capsule, hero, logo) são derivadas do `appid` apontando para a Steam CDN, sem necessidade de hospedar assets.
 
-Sinta-se à vontade para explorar o código e contribuir com melhorias. Feedbacks são sempre bem-vindos!
+## Rodando localmente
 
----
+```bash
+pnpm install
+pnpm dev
+```
 
-## 📞 Contato
+## Licença
 
-Fique à vontade para entrar em contato comigo pelo meu [LinkedIn](https://www.linkedin.com/in/cmiguelwm/).  
-Até mais! 👋
-
----
-
-## 📄 Licença
-
-Este projeto está licenciado sob a licença **MIT**.
+MIT
