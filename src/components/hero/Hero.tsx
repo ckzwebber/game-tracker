@@ -61,7 +61,8 @@ export function Hero({ games }: HeroProps) {
   const sectionRef = useRef<HTMLElement>(null)
 
   const totalHours = games.reduce((acc, g) => acc + g.hoursPlayed, 0)
-  const avgRating = games.reduce((acc, g) => acc + g.rating, 0) / games.length
+  const ratedGames = games.filter((g) => g.rating != null)
+  const avgRating = ratedGames.reduce((acc, g) => acc + g.rating!, 0) / (ratedGames.length || 1)
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -118,9 +119,9 @@ export function Hero({ games }: HeroProps) {
                 fontSize: 'clamp(4rem, 9vw, 8.75rem)',
               }}
             >
-              YOUR
+              GAME
               <br />
-              GAMES
+              TRACKER
             </h1>
           </motion.div>
 
@@ -135,7 +136,7 @@ export function Hero({ games }: HeroProps) {
               marginBottom: 'clamp(3rem, 6vw, 6rem)',
             }}
           >
-            A personal log of every game played, rated, and remembered.
+            Um registro pessoal de cada jogo jogado, avaliado e lembrado.
           </motion.p>
 
           <motion.div

@@ -2,23 +2,13 @@ import { useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 import { AnimatedCounter } from '../ui/AnimatedCounter'
+import { steamImages } from '../../lib/steam-images'
+import { STATUS_LABELS } from '../../types/game'
 import type { GameEntry } from '../../types/game'
 
 interface GameModalProps {
   game: GameEntry | null
   onClose: () => void
-}
-
-const STATUS_LABEL: Record<string, string> = {
-  completed: 'Completed',
-  playing: 'Playing',
-  dropped: 'Dropped',
-}
-
-function formatDate(dateStr: string) {
-  const [year, month] = dateStr.split('-')
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  return `${months[parseInt(month, 10) - 1]} ${year}`
 }
 
 export function GameModal({ game, onClose }: GameModalProps) {
@@ -90,7 +80,7 @@ export function GameModal({ game, onClose }: GameModalProps) {
               <button
                 ref={closeBtnRef}
                 onClick={onClose}
-                aria-label="Close"
+                aria-label="Fechar"
                 style={{
                   position: 'absolute',
                   top: '16px',
@@ -123,11 +113,22 @@ export function GameModal({ game, onClose }: GameModalProps) {
               </button>
 
               <div style={{ position: 'relative', width: '100%', height: 'clamp(220px, 35vw, 360px)', overflow: 'hidden' }}>
-                <img
-                  src={game.cover}
-                  alt={game.title}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                />
+                {game.appid ? (
+                  <img
+                    src={steamImages(game.appid).hero}
+                    alt={game.title}
+                    onError={(e) => {
+                      if (game.appid) e.currentTarget.src = steamImages(game.appid).header
+                    }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  />
+                ) : (
+                  <img
+                    src={game.cover ?? ''}
+                    alt={game.title}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  />
+                )}
                 <div style={{
                   position: 'absolute',
                   inset: 0,
@@ -135,7 +136,7 @@ export function GameModal({ game, onClose }: GameModalProps) {
                 }} />
               </div>
 
-              <div style={{ padding: 'clamp(1.5rem, 4vw, 2.5rem)' }}>
+              <div style={{ padding: 'clamp(1.5rem, 4vw, 2.5rem)', paddingBottom: 'clamp(2rem, 5vw, 3.5rem)' }}>
                 <h2
                   style={{
                     fontFamily: 'Inter, system-ui, sans-serif',
@@ -156,7 +157,7 @@ export function GameModal({ game, onClose }: GameModalProps) {
                   </span>
                   <span style={{ color: 'rgba(161,161,170,0.3)', fontSize: '12px' }}>·</span>
                   <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: 'rgba(161,161,170,0.55)' }}>
-                    {STATUS_LABEL[game.status]}
+                    {STATUS_LABELS[game.status]}
                   </span>
                   {game.id && (
                     <>
@@ -181,7 +182,7 @@ export function GameModal({ game, onClose }: GameModalProps) {
                 >
                   <div style={{ background: '#111113', padding: 'clamp(1rem, 2.5vw, 1.25rem)', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                     <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(161,161,170,0.45)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                      Hours
+                      Horas
                     </span>
                     <span style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 600, fontSize: 'clamp(1.25rem, 3vw, 1.75rem)', color: '#FAFAFA', lineHeight: 1 }}>
                       <AnimatedCounter value={game.hoursPlayed} />
@@ -191,28 +192,32 @@ export function GameModal({ game, onClose }: GameModalProps) {
 
                   <div style={{ background: '#111113', padding: 'clamp(1rem, 2.5vw, 1.25rem)', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                     <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(161,161,170,0.45)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                      Rating
+                      Nota
                     </span>
-                    <span
-                      className={game.rating >= 9 ? 'text-gradient-accent' : ''}
-                      style={{
-                        fontFamily: 'Inter, system-ui, sans-serif',
-                        fontWeight: 600,
-                        fontSize: 'clamp(1.25rem, 3vw, 1.75rem)',
-                        color: game.rating >= 9 ? undefined : '#FAFAFA',
-                        lineHeight: 1,
-                      }}
-                    >
-                      <AnimatedCounter value={game.rating} decimals={1} />
-                      <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: 'rgba(161,161,170,0.45)', marginLeft: '4px' }}>/10</span>
-                    </span>
+                    {game.rating != null ? (
+                      <span
+                        className={game.rating >= 9 ? 'text-gradient-accent' : ''}
+                        style={{
+                          fontFamily: 'Inter, system-ui, sans-serif',
+                          fontWeight: 600,
+                          fontSize: 'clamp(1.25rem, 3vw, 1.75rem)',
+                          color: game.rating >= 9 ? undefined : '#FAFAFA',
+                          lineHeight: 1,
+                        }}
+                      >
+                        <AnimatedCounter value={game.rating} decimals={1} />
+                        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: 'rgba(161,161,170,0.45)', marginLeft: '4px' }}>/10</span>
+                      </span>
+                    ) : (
+                      <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: 'rgba(161,161,170,0.3)', lineHeight: 1.5 }}>—</span>
+                    )}
                   </div>
 
                   <div style={{ background: '#111113', padding: 'clamp(1rem, 2.5vw, 1.25rem)', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                     <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(161,161,170,0.45)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                      Progress
+                      Progresso
                     </span>
-                    {game.mainStoryProgress > 0 ? (
+                    {game.mainStoryProgress != null && game.mainStoryProgress > 0 ? (
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                         <span style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 600, fontSize: 'clamp(1.25rem, 3vw, 1.75rem)', color: '#FAFAFA', lineHeight: 1 }}>
                           {game.mainStoryProgress}
@@ -229,13 +234,13 @@ export function GameModal({ game, onClose }: GameModalProps) {
                       </div>
                     ) : (
                       <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: 'rgba(161,161,170,0.3)', lineHeight: 1.5 }}>
-                        N/A
+                        —
                       </span>
                     )}
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: game.notes || game.startedAt ? '28px' : '0' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: game.notes ? '28px' : '0' }}>
                   {game.tags.map((tag) => (
                     <span
                       key={tag}
@@ -261,7 +266,6 @@ export function GameModal({ game, onClose }: GameModalProps) {
                       background: 'rgba(255,255,255,0.025)',
                       borderRadius: '12px',
                       border: '1px solid rgba(39,39,42,0.5)',
-                      marginBottom: game.startedAt ? '20px' : '0',
                     }}
                   >
                     <p
@@ -275,31 +279,6 @@ export function GameModal({ game, onClose }: GameModalProps) {
                     >
                       {game.notes}
                     </p>
-                  </div>
-                )}
-
-                {(game.startedAt || game.finishedAt) && (
-                  <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
-                    {game.startedAt && (
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
-                        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(161,161,170,0.35)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                          Started
-                        </span>
-                        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: 'rgba(161,161,170,0.55)' }}>
-                          {formatDate(game.startedAt)}
-                        </span>
-                      </div>
-                    )}
-                    {game.finishedAt && (
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
-                        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'rgba(161,161,170,0.35)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                          Finished
-                        </span>
-                        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: 'rgba(161,161,170,0.55)' }}>
-                          {formatDate(game.finishedAt)}
-                        </span>
-                      </div>
-                    )}
                   </div>
                 )}
               </div>

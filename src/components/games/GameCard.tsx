@@ -1,6 +1,8 @@
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
+import { steamImages } from "../../lib/steam-images";
+import { STATUS_LABELS } from "../../types/game";
 import type { GameEntry } from "../../types/game";
 
 interface GameCardProps {
@@ -9,19 +11,16 @@ interface GameCardProps {
   onClick: (game: GameEntry) => void;
 }
 
-const STATUS_LABEL: Record<string, string> = {
-  completed: "Completed",
-  playing: "Playing",
-  dropped: "Dropped",
-};
-
 export function GameCard({ game, index, onClick }: GameCardProps) {
   const reduced = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.1 });
   const [hovered, setHovered] = useState(false);
 
-  const isHighRating = game.rating >= 9;
+  const isHighRating = game.rating != null && game.rating >= 9;
+
+  const coverSrc = game.appid ? steamImages(game.appid).capsule : (game.cover ?? "");
+  const fallbackSrc = game.appid ? steamImages(game.appid).header : (game.cover ?? "");
 
   return (
     <motion.div
@@ -52,9 +51,10 @@ export function GameCard({ game, index, onClick }: GameCardProps) {
 
       <div className="relative flex-shrink-0 self-start" style={{ width: "clamp(100px, 12vw, 180px)" }}>
         <motion.img
-          src={game.cover}
+          src={coverSrc}
           alt={game.title}
           className="w-full object-cover rounded-xl"
+          onError={(e) => { e.currentTarget.src = fallbackSrc }}
           animate={{
             scale: hovered && !reduced ? 1.04 : 1,
             boxShadow: hovered && !reduced ? "0 12px 40px rgba(0,0,0,0.6), 0 0 40px rgba(99,102,241,0.2)" : "0 8px 24px rgba(0,0,0,0.4)",
@@ -63,7 +63,7 @@ export function GameCard({ game, index, onClick }: GameCardProps) {
         />
         <div className="absolute left-0 right-0 overflow-hidden pointer-events-none" style={{ top: "100%", height: "48px" }}>
           <img
-            src={game.cover}
+            src={coverSrc}
             alt=""
             aria-hidden
             className="w-full object-cover"
@@ -81,9 +81,9 @@ export function GameCard({ game, index, onClick }: GameCardProps) {
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "6px 12px" }}>
           <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "rgba(161,161,170,0.6)" }}>{game.platform}</span>
           <span style={{ color: "rgba(161,161,170,0.35)", fontSize: "12px" }}>·</span>
-          <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "rgba(161,161,170,0.6)" }}>{STATUS_LABEL[game.status]}</span>
+          <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "rgba(161,161,170,0.6)" }}>{STATUS_LABELS[game.status]}</span>
           <span style={{ color: "rgba(161,161,170,0.35)", fontSize: "12px" }}>·</span>
-          <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "rgba(161,161,170,0.6)" }}>{game.hoursPlayed}h played</span>
+          <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "12px", color: "rgba(161,161,170,0.6)" }}>{game.hoursPlayed}h jogadas</span>
         </div>
 
         <div className="relative" style={{ marginTop: "14px", fontSize: "clamp(1.25rem, 2.2vw, 1.875rem)" }}>
@@ -95,7 +95,7 @@ export function GameCard({ game, index, onClick }: GameCardProps) {
           </motion.h2>
         </div>
 
-        {game.mainStoryProgress > 0 && (
+        {game.mainStoryProgress != null && game.mainStoryProgress > 0 && (
           <div
             style={{
               display: "flex",
@@ -135,18 +135,24 @@ export function GameCard({ game, index, onClick }: GameCardProps) {
       </div>
 
       <div className="flex-shrink-0" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "4px", paddingTop: "2px" }}>
-        <span
-          className={isHighRating ? "text-gradient-accent" : ""}
-          style={{
-            fontFamily: "Inter, sans-serif",
-            fontWeight: 600,
-            fontVariantNumeric: "tabular-nums",
-            fontSize: "clamp(1.25rem, 1.8vw, 1.6rem)",
-            color: isHighRating ? undefined : "#FAFAFA",
-          }}>
-          {game.rating.toFixed(1)}
-        </span>
-        <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "11px", color: "rgba(161,161,170,0.45)" }}>/10</span>
+        {game.rating != null ? (
+          <>
+            <span
+              className={isHighRating ? "text-gradient-accent" : ""}
+              style={{
+                fontFamily: "Inter, sans-serif",
+                fontWeight: 600,
+                fontVariantNumeric: "tabular-nums",
+                fontSize: "clamp(1.25rem, 1.8vw, 1.6rem)",
+                color: isHighRating ? undefined : "#FAFAFA",
+              }}>
+              {game.rating.toFixed(1)}
+            </span>
+            <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "11px", color: "rgba(161,161,170,0.45)" }}>/10</span>
+          </>
+        ) : (
+          <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "11px", color: "rgba(161,161,170,0.3)" }}>—</span>
+        )}
       </div>
     </motion.div>
   );

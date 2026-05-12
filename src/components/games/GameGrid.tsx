@@ -5,19 +5,18 @@ import { Container } from '../ui/Container'
 import type { GameEntry, GameStatus } from '../../types/game'
 
 type FilterOption = 'all' | GameStatus
-type SortOption = 'rating' | 'hours' | 'recent'
+type SortOption = 'rating' | 'hours'
 
 const FILTERS: { value: FilterOption; label: string }[] = [
-  { value: 'all', label: 'All' },
-  { value: 'playing', label: 'Playing' },
-  { value: 'completed', label: 'Completed' },
-  { value: 'dropped', label: 'Dropped' },
+  { value: 'all', label: 'Todos' },
+  { value: 'jogando', label: 'Jogando' },
+  { value: 'concluido', label: 'Concluído' },
+  { value: 'largado', label: 'Largado' },
 ]
 
 const SORTS: { value: SortOption; label: string }[] = [
-  { value: 'rating', label: 'Rating' },
-  { value: 'hours', label: 'Hours' },
-  { value: 'recent', label: 'Recent' },
+  { value: 'rating', label: 'Nota' },
+  { value: 'hours', label: 'Horas' },
 ]
 
 interface GameGridProps {
@@ -34,9 +33,8 @@ export function GameGrid({ games, onGameClick }: GameGridProps) {
     let list = filter === 'all' ? games : games.filter((g) => g.status === filter)
     list = [...list].sort((a, b) => {
       let diff = 0
-      if (sort === 'rating') diff = b.rating - a.rating
+      if (sort === 'rating') diff = (b.rating ?? -Infinity) - (a.rating ?? -Infinity)
       if (sort === 'hours') diff = b.hoursPlayed - a.hoursPlayed
-      if (sort === 'recent') diff = b.startedAt.localeCompare(a.startedAt)
       return sortAsc ? -diff : diff
     })
     return list
@@ -74,7 +72,7 @@ export function GameGrid({ games, onGameClick }: GameGridProps) {
           >
             <nav
               style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
-              aria-label="Filter games"
+              aria-label="Filtrar jogos"
             >
               {FILTERS.map((f) => (
                 <button
@@ -108,7 +106,7 @@ export function GameGrid({ games, onGameClick }: GameGridProps) {
                 color: 'rgba(161,161,170,0.5)',
               }}
             >
-              <span style={{ marginRight: '8px', letterSpacing: '0.05em' }}>Sort</span>
+              <span style={{ marginRight: '8px', letterSpacing: '0.05em' }}>Ordenar</span>
               {SORTS.map((s) => (
                 <button
                   key={s.value}
@@ -150,7 +148,7 @@ export function GameGrid({ games, onGameClick }: GameGridProps) {
               marginTop: '4px',
             }}
           >
-            {filtered.length} {filtered.length === 1 ? 'game' : 'games'}
+            {filtered.length} {filtered.length === 1 ? 'jogo' : 'jogos'}
           </motion.p>
         </div>
 
